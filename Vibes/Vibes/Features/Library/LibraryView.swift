@@ -146,33 +146,6 @@ struct LibraryView: View {
                     }
                 }
 
-                // Downloads
-                Section(header: Text("Downloads")) {
-                    NavigationLink(destination: DownloadsView()) {
-                        HStack {
-                            Image(systemName: "arrow.down.circle.fill")
-                                .foregroundColor(.green)
-                                .frame(width: 40, height: 40)
-                                .background(Color.green.opacity(0.1))
-                                .cornerRadius(8)
-
-                            VStack(alignment: .leading) {
-                                Text("Downloaded Songs")
-                                    .font(.headline)
-                                Text("Listen offline")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-
-                            Spacer()
-
-                            Image(systemName: "chevron.right")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                }
-
                 // Auto Playlists
                 Section(header: Text("Auto Playlists")) {
                     // Liked Songs
