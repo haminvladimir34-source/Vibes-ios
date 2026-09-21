@@ -1,0 +1,37 @@
+name: Build Vibes IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          xcodebuild \
+            -project Vibes/Vibes.xcodeproj \
+            -scheme Vibes \
+            -sdk iphoneos \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/Vibes.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            archive
+
+      - name: Create IPA
+        run: |
+          mkdir -p build/Payload
+          cp -R build/Vibes.xcarchive/Products/Applications/Vibes.app build/Payload/
+          cd build
+          zip -r Vibes.ipa Payload
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Vibes-IPA
+          path: build/Vibes.ipa
